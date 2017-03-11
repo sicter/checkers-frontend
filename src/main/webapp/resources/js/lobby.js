@@ -4,10 +4,10 @@
 
 jQuery(document).ready(function($){
 	var id = $('#id').html();
-	var id2 = $('#id2').html();
+	// var id2 = $('#id2').html();
 	turnOnInviteButton();
 	
-	getInvitation(id2);
+	getInvitation(id);
 	//getInvitation(id2);
 	//getInvitation(id3);
 	//getInvitation(id4);
