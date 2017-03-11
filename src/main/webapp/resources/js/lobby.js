@@ -83,7 +83,7 @@ function handleSendInvitationComplete(data) {
 	}
 	game = data['responseJSON'];
 	localStorage.setItem('game', JSON.stringify(game));
-	//window.location.replace("checkersGame?thisPlayer=2");
+	window.location.replace("checkersGame?thisPlayer=2");
 }
 
 // Sends accept request to controller with the sender and receiver id
