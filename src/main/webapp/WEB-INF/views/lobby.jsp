@@ -16,8 +16,7 @@
 		<h2>Welcome! You have been assigned the Id:</h2>
 		<h3 id="id">
 			${id}
-		</h3>
-		\n\n
+		</h3
 		Type in the id of another user to invite:
 		<input type="text" id="inviteName" placeholder="Id"/>
 		<input type="button" id="inviteButton" value="Invite"/>
