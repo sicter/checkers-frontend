@@ -84,7 +84,7 @@ function updateBoard(jsonData) {
 			if (board[i][j] == '1') {
 				var pieceId = 'blackPiece' + i + '_' + j;
 				htmlString += '"blackPiece ';
-				if (playerTurn == '1') {
+				if (playerTurn == '1' && thisPlayer == playerTurn) {
 					htmlString += 'blackPieceActive" id="' + pieceId + '" onClick="selectPiece(\'' + pieceId + '\')"/>';
 				} else {
 					htmlString += '"/>';
@@ -92,7 +92,7 @@ function updateBoard(jsonData) {
 			} else if (board[i][j] == '2') {
 				var pieceId = 'redPiece' + i + '_' + j;
 				htmlString += '"redPiece ';
-				if (playerTurn == '2') {
+				if (playerTurn == '2' && thisPlayer == playerTurn) {
 					htmlString += 'redPieceActive" id="' + pieceId + '" onClick="selectPiece(\'' + pieceId + '\')"/>';
 				} else {
 					htmlString += '"/>';
@@ -100,7 +100,7 @@ function updateBoard(jsonData) {
 			} else if (board[i][j] == '3') {
 				var pieceId = 'blackPieceKing' + i + '_' + j;
 				htmlString += '"blackPiece blackPieceKing ';
-				if (playerTurn == '1') {
+				if (playerTurn == '1' && thisPlayer == playerTurn) {
 					htmlString += 'blackPieceActive" id="' + pieceId + '" onClick="selectPiece(\'' + pieceId + '\')">&#9813</div>';
 				} else {
 					htmlString += '">&#9813</div>';
@@ -108,7 +108,7 @@ function updateBoard(jsonData) {
 			} else if (board[i][j] == '4') {
 				var pieceId = 'redPieceKing' + i + '_' + j;
 				htmlString += '"redPiece redPieceKing ';
-				if (playerTurn == '2') {
+				if (playerTurn == '2' && thisPlayer == playerTurn) {
 					htmlString += 'redPieceActive" id="' + pieceId + '" onClick="selectPiece(\'' + pieceId + '\')">&#9813</div>';
 				} else {
 					htmlString += '">&#9813</div>';

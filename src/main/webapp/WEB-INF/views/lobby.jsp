@@ -17,16 +17,7 @@
 		<h3 id="id">
 			${id}
 		</h3>
-		<h2>Other players:</h2>
-		<h3 id="id2">
-			${id2}
-		</h3>
-		<h3 id="id3">
-			${id3}
-		</h3>
-		<h3 id="id4">
-			${id4}
-		</h3>
+		\n\n
 		Type in the id of another user to invite:
 		<input type="text" id="inviteName" placeholder="Id"/>
 		<input type="button" id="inviteButton" value="Invite"/>

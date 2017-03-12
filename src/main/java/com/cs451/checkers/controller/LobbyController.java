@@ -23,13 +23,10 @@ public class LobbyController {
 		
 		ModelAndView mv = new ModelAndView("lobby");
 		mv.addObject("id", getId());
-		mv.addObject("id2",getId());
 		
 		
 		String id = (String)mv.getModel().get("id");
-		String id2 = (String)mv.getModel().get("id2");
 		System.out.println(id);
-		System.out.println(id2);
 		return mv;
 		
 	}
