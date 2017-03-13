@@ -4,6 +4,7 @@
 
 var game;
 var gameId;
+var playerId;
 var sourceCoords = '0_0';
 var destinationCoords = '0_0';
 var possibleMoves;
@@ -13,10 +14,43 @@ var selectedPiece;
 
 jQuery(document).ready(function($){
 	game = JSON.parse(localStorage.getItem('game'));
+	playerId = localStorage.getItem('playerId');
 	thisPlayer = getParameterByName('thisPlayer');
+	
+	var btn = $('#quitButton');
+	btn.val('Quit');
+	btn.click(function() {
+		quitGame();
+	});
+	btn.prop('disabled',false);
 	
 	updateBoard(game);
 });
+
+function quitGame() {
+	var jsonData = {'gameId': gameId};
+	$.ajax({
+		method: 'POST',
+		url: 'removeGame.html',
+		data: jsonData,
+		dataType: 'json',
+		complete: function(data) {
+			
+		}
+	});
+	jsonData = {'playerId': playerId};
+	$.ajax({
+		method: 'POST',
+		url: 'removePlayer.html',
+		data: jsonData,
+		dataType: 'json',
+		complete: function(data) {
+			
+		}
+	});
+	localStorage.setItem('game', null);
+	window.location.replace("lobby");
+}
 
 // Sends GET request to retrieve the current state of the board
 function getUpdate() {
@@ -61,6 +95,23 @@ function makeMove(destinationId) {
 
 // Update the board html to display the current piece positions
 function updateBoard(jsonData) {
+	var isOver = jsonData['isOver'];
+	var gameOverText;
+	if (isOver == '1') {
+		if (playerTurn == thisPlayer) {
+			gameOverText = 'You lost!';
+		} else {
+			gameOverText = 'You won!';
+		}
+	} else if (isOver == '2') {
+		gameOverText = 'A player left the game!';
+	}
+	if (gameOverText) {
+		alert(gameOverText);
+		quitGame();
+	}
+	
+	
 	possibleMoves = jsonData['moves'];
 	board = jsonData['game']['board'];
 	playerTurn = jsonData['playerTurn'];
@@ -190,11 +241,6 @@ function displayAllPossibleMoves(allPossibleMoves) {
 			}
 		}
 	}
-}
-
-// End the player's turn;
-function endTurn() {
-	alert('Turn ended!');
 }
 
 function getParameterByName(name, url) {

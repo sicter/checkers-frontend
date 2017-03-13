@@ -1,12 +1,12 @@
 /**
- * 
+ *
  */
 
 jQuery(document).ready(function($){
 	var id = $('#id').html();
 	// var id2 = $('#id2').html();
 	turnOnInviteButton();
-	
+
 	getInvitation(id);
 	//getInvitation(id2);
 	//getInvitation(id3);
@@ -34,7 +34,7 @@ function turnOffInviteButton() {
 function getInvitation(id) {
 	var postData = {};
 	postData['playerId'] = id;
-	
+
 	$.ajax({
 		type: 'POST',
 		url: 'invitationWait.html',
@@ -53,7 +53,7 @@ function handleGetInvitationSuccess(data) {
 	if (accepted) {
 		acceptInvitation($('#id').html(), senderId);
 	} else {
-		
+		declineInvitation($('#id').html(), senderId);
 	}
 }
 
@@ -78,11 +78,16 @@ function sendInvitation(senderId, receiverId) {
 //Handles data returned by completion of request to send an invite
 function handleSendInvitationComplete(data) {
 	turnOnInviteButton();
-	if (data['statusText'] == 'error') {
+	if (data['statusText'] == 'error' || data['responseText'] == '503') {
+		alert('No response.');
+		return;
+	} else if (data['responseJSON']['message'] == 'Invitation declined!' || !data['responseJSON']['game']) {
+		alert('Invitation declined!');
 		return;
 	}
 	game = data['responseJSON'];
 	localStorage.setItem('game', JSON.stringify(game));
+	localStorage.setItem('playerId', $('#id').html());
 	window.location.replace("checkersGame?thisPlayer=2");
 }
 
@@ -103,10 +108,31 @@ function acceptInvitation(receiverId, senderId) {
 	});
 }
 
+function declineInvitation(receiverId, senderId) {
+	var postData = {};
+	postData['senderId'] = senderId;
+	postData['receiverId'] = receiverId;
+	
+	$.ajax({
+		type: 'POST',
+		url: 'postInviteDecline.html',
+		data: postData,
+		dataType: 'json',
+		complete: function(data) {
+			handleDeclineInvitationComplete(data);
+		}
+	});
+}
+
 // Handles data returned by completion of request to accept an invite
 function handleAcceptInvitationComplete(data) {
 	game = data['responseJSON'];
 	localStorage.setItem('game', JSON.stringify(game));
+	localStorage.setItem('playerId', $('#id').html());
 	window.location.replace("checkersGame?thisPlayer=1");
+}
+
+function handleDeclineInvitationComplete(data) {
+	
 }
 

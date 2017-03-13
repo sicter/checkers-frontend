@@ -109,7 +109,7 @@
 			<td class="black" id="7_7"></td>
 			</tr>
 		</table>
-		<a href="/checkers">back</a>
+		<input type="button" id="quitButton" value="Quit"/>
 	</center>
 </body>
 </html>

@@ -70,4 +70,32 @@ public class CheckersController {
 		
 		return response;
 	}
+	
+	@RequestMapping(value = "/removeGame", method=RequestMethod.POST)
+	@ResponseBody
+	public String removeGame(
+			@RequestParam("gameId") String gameId) throws Exception {
+		
+		String url = urlBase + "server/game/remove";
+		
+		JSONObject body = new JSONObject();
+		body.put("gameID", gameId);
+		
+		String response = HTTPRequests.sendPOSTRequest(url, body.toString());
+		return response;
+	}
+	
+	@RequestMapping(value = "/removePlayer", method=RequestMethod.POST)
+	@ResponseBody
+	public String removePlayer(
+			@RequestParam("playerId") String playerId) throws Exception {
+		
+		String url = urlBase + "server/player/remove";
+		
+		JSONObject body = new JSONObject();
+		body.put("playerID", playerId);
+		
+		String response = HTTPRequests.sendPOSTRequest(url, body.toString());
+		return response;
+	}
 }
